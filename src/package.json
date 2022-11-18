@@ -1,0 +1,14 @@
+{
+    "name": "flatdrive",
+    "version": "1.0.0",
+    "description": "FlatDrive SCSS",
+    "scripts": {
+        "start": "sass --watch scss/index.scss ../css/screen.css"
+    },
+    "keywords": [],
+    "author": "Tinus#4202",
+    "license": "ISC",
+    "dependencies": {
+        "sass": "^1.56.1"
+    }
+}
