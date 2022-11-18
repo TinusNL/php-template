@@ -1,7 +1,7 @@
 {
-    "name": "flatdrive",
+    "name": "php-template",
     "version": "1.0.0",
-    "description": "FlatDrive SCSS",
+    "description": "Template SCSS",
     "scripts": {
         "start": "sass --watch scss/index.scss ../css/screen.css"
     },
