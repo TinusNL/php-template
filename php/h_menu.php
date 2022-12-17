@@ -3,6 +3,8 @@ class h_menu
 {
 
     public static $pages = [];
+    public static $page;
+    public static $action;
 
     public static function addPage(string $class, string $name, array $aliases, bool $requiresLogin = false, bool $inNav = true)
     {
@@ -22,21 +24,22 @@ class h_menu
             exit();
         }
 
-        $url = str_replace(BASE_PATH, '', $url);
-        $splitURL = explode('/', trim($url, '/'));
+        $url = trim(str_replace(BASE_PATH, '', $url), '/');
+        $splitURL = explode('/', $url);
 
         $bestMatch = null;
         $bestMatchCount = 0;
 
         foreach (self::$pages as $page) {
-            $matchCount = array_intersect($splitURL, $page['aliases']);
+            $pageUrl = implode('/', $page['aliases']);
 
-            if ($matchCount > $bestMatchCount) {
+            if (str_starts_with($url, $pageUrl) && count($page['aliases']) > $bestMatchCount) {
                 $bestMatch = $page;
-                $bestMatchCount = $matchCount;
+                $bestMatchCount = $bestMatchCount;
             }
         }
 
-        return new $bestMatch['class'](end($splitURL));
+        self::$page = $bestMatch;
+        self::$action = end($splitURL);
     }
 }
