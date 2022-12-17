@@ -41,5 +41,10 @@ class h_menu
 
         self::$page = $bestMatch;
         self::$action = end($splitURL);
+
+        if (self::$page['requiresLogin'] && !h_discord::$user['loggedin']) {
+            header('Location: ' . BASE_PATH);
+            exit();
+        }
     }
 }
