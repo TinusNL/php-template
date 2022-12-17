@@ -1,12 +1,11 @@
 <?php
 require_once '_constants.php';
 
+// Root
 h_menu::addPage('p_home', 'Home', [''], false, true);
 
 // Discord Authorization
-h_menu::addPage('h_discord', 'Login', ['login'], false, false);
-h_menu::addPage('h_discord', 'Logout', ['logout'], false, false);
-h_menu::addPage('h_discord', 'Process', ['process'], false, false);
+h_menu::addPage('h_discord', 'Discord', ['discord'], false, false);
 
 // Load the correct class
 h_menu::getPageByURL($_SERVER['REQUEST_URI'])
