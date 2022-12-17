@@ -24,6 +24,7 @@ class h_menu
             exit();
         }
 
+        $url = explode('?', $url)[0];
         $url = trim(str_replace(BASE_PATH, '', $url), '/');
         $splitURL = explode('/', $url);
 
@@ -42,7 +43,7 @@ class h_menu
         self::$page = $bestMatch;
         self::$action = end($splitURL);
 
-        if (self::$page['requiresLogin'] && !h_discord::$user['loggedin']) {
+        if (self::$page['requiresLogin'] && !h_discord::$user->loggedin) {
             header('Location: ' . BASE_PATH);
             exit();
         }
