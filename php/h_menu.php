@@ -5,13 +5,14 @@ class h_menu
     public static $pages = [];
     public static $page;
     public static $action;
+    public static $params = [];
 
-    public static function addPage(string $class, string $name, array $aliases, bool $requiresLogin = false, bool $inNav = true)
+    public static function addPage(string $class, string $name, string $match, bool $requiresLogin = false, bool $inNav = true)
     {
         self::$pages[] = [
             'class' => $class,
             'name' => $name,
-            'aliases' => $aliases,
+            'match' => $match,
             'requiresLogin' => $requiresLogin,
             'inNav' => $inNav
         ];
@@ -32,16 +33,41 @@ class h_menu
         $bestMatchCount = 0;
 
         foreach (self::$pages as $page) {
-            $pageUrl = implode('/', $page['aliases']);
+            $splitMatch = explode('/', $page['match']);
+            $match = [];
 
-            if (str_starts_with($url, $pageUrl) && count($page['aliases']) > $bestMatchCount) {
+            foreach ($splitMatch as $value) {
+                if (str_starts_with($value, ':')) {
+                    $match[] = '(\w+)';
+                } else {
+                    $match[] = $value;
+                }
+            }
+
+            $match = '/' . implode('\/', $match) . '.*/';
+
+            if (preg_match($match, $url, $matches) == 1 && count($splitMatch) >= $bestMatchCount) {
                 $bestMatch = $page;
-                $bestMatchCount = $bestMatchCount;
+                $bestMatchCount = count($splitMatch);
+                $bestMatches = $matches;
             }
         }
 
         self::$page = $bestMatch;
         self::$action = end($splitURL);
+
+        if (substr_count($bestMatch['match'], ':') > 0) {
+            $splitMatch = explode('/', $page['match']);
+            array_shift($bestMatches);
+
+            foreach ($splitMatch as $value) {
+                if (str_starts_with($value, ':')) {
+                    $value = substr($value, 1);
+
+                    self::$params[$value] = array_shift($bestMatches);
+                }
+            }
+        }
 
         if (self::$page['requiresLogin'] && !h_discord::$user->loggedin) {
             header('Location: ' . BASE_PATH);
