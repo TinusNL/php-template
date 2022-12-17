@@ -6,7 +6,10 @@ class h_database
 
     public static function prepare($query)
     {
-        return self::$conn->stmt_init()->prepare($query);
+        $stmt = self::$conn->stmt_init();
+        $stmt->prepare($query);
+
+        return $stmt;
     }
 }
 
