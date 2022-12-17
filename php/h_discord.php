@@ -1,6 +1,8 @@
 <?php
 class h_discord
 {
+    public static object $user;
+
     public function __construct($action)
     {
         switch ($action) {
@@ -114,24 +116,24 @@ class h_discord
         header('Location: ' . BASE_PATH);
     }
 
-    public static function info()
+    public static function setInfo()
     {
         session_start();
 
-        $discordUser = [];
+        $tempUser = [];
+        $tempUser['loggedin'] = $_SESSION['loggedin'] ?? false;
 
-        $discordUser['loggedin'] = $_SESSION['loggedin'] ?? false;
+        if ($tempUser['loggedin']) {
+            $tempUser = array_merge($tempUser, json_decode($_SESSION['discordUser'], true));
 
-        if ($discordUser['loggedin']) {
-            $discordUser = array_merge($discordUser, json_decode($_SESSION['discordUser'], true));
-
-            $discordUser['id'] = strval($discordUser['id']);
-
-            $discordUser['avatarsmall'] = 'https://cdn.discordapp.com/avatars/' . $discordUser['id'] . '/' . $discordUser['avatar'] . '.png?size=128';
-            $discordUser['avatarmedium'] = 'https://cdn.discordapp.com/avatars/' . $discordUser['id'] . '/' . $discordUser['avatar'] . '.png?size=512';
-            $discordUser['avatarlarge'] = 'https://cdn.discordapp.com/avatars/' . $discordUser['id'] . '/' . $discordUser['avatar'] . '.png?size=2048';
+            $tempUser['id'] = strval($tempUser['id']);
+            $tempUser['avatarsmall'] = 'https://cdn.discordapp.com/avatars/' . $tempUser['id'] . '/' . $tempUser['avatar'] . '.png?size=128';
+            $tempUser['avatarmedium'] = 'https://cdn.discordapp.com/avatars/' . $tempUser['id'] . '/' . $tempUser['avatar'] . '.png?size=512';
+            $tempUser['avatarlarge'] = 'https://cdn.discordapp.com/avatars/' . $tempUser['id'] . '/' . $tempUser['avatar'] . '.png?size=2048';
         }
+
+        self::$user = (object) $tempUser;
     }
 }
 
-h_discord::info();
+h_discord::setInfo();
