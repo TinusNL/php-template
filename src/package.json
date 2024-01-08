@@ -1,14 +1,13 @@
 {
-    "name": "php-template",
+    "name": "php-scss",
     "version": "1.0.0",
-    "description": "Template SCSS",
+    "description": "PHP SCSS",
     "scripts": {
-        "start": "sass --watch scss/index.scss ../css/screen.css"
+        "start": "sass --watch scss/main.scss ../public/css/main.css"
     },
     "keywords": [],
-    "author": "Tinus#4202",
     "license": "ISC",
     "dependencies": {
-        "sass": "^1.56.1"
+        "sass": "^1.68.0"
     }
 }

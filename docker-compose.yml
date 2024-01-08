@@ -1,0 +1,26 @@
+version: '3.7'
+services:
+  web:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/var/www/html
+      - ./docker/conf/default.conf:/etc/nginx/conf.d/default.conf
+  php:
+    build:
+      context: ./docker
+    volumes:
+      - ./:/var/www/html
+      - ./docker/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+  mysql:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./docker/mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: php_template
+      MYSQL_USER: php_template
+      MYSQL_PASSWORD: root
