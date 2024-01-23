@@ -4,6 +4,7 @@ class Database
 {
     public static PDO $conn;
 
+    // Prepare a query
     public static function prepare($query): PDOStatement
     {
         $stmt = self::$conn->prepare($query);
