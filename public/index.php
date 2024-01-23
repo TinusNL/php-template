@@ -23,6 +23,7 @@ if (Router::isApi()) : ?>
     <body>
         <?php
 
+        // Get the page content
         Router::getContent();
 
         ?>
