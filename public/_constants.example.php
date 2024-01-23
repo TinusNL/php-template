@@ -25,3 +25,6 @@ spl_autoload_register(function ($file) {
 
 // Start session
 session_start();
+
+// Get the user from the session
+Auth::loadUser();

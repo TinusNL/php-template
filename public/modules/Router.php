@@ -35,19 +35,31 @@ class Router
         return str_repeat('../', count($url) - 1);
     }
 
+    // Get the url for the given path
+    public static function getUrl(string $path): string
+    {
+        return '/' . URL_PREFIX . $path;
+    }
+
     // Get the content of the current page
-    public static function getContent()
+    public static function getContent(): string
     {
         $url = trim(Router::$url, '/');
 
+        // Start the output buffer
+        ob_start();
+
         // Check if the page exists. If not, load the 404 page
         if (array_key_exists($url, Router::$pages)) {
-            return include Router::$pages[$url];
+            include Router::$pages[$url];
         } else if ($url == '') {
-            return include Router::$pages['home'];
+            include Router::$pages['home'];
         } else {
-            return include Router::$pages['404'];
+            include Router::$pages['404'];
         }
+
+        // Return the output buffer
+        return ob_get_clean();
     }
 
     // Recursively get all directories

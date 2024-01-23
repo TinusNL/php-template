@@ -6,9 +6,12 @@ require_once '_constants.php';
 Router::loadPages('pages');
 Router::loadUrl($_SERVER['REQUEST_URI']);
 
+// Get the content of the current page
+$pageContent = Router::getContent();
+
 // If the current page is not an api, load the header
 if (Router::isApi()) : ?>
-    <?php Router::getContent(); ?>
+    <?= $pageContent ?>
 <?php else :  ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -21,12 +24,7 @@ if (Router::isApi()) : ?>
     </head>
 
     <body>
-        <?php
-
-        // Get the page content
-        Router::getContent();
-
-        ?>
+        <?= $pageContent ?>
     </body>
 
     </html>
