@@ -7,12 +7,16 @@ class Router
     // Load all pages from the given directory
     public static function loadPages(string $pagesDir): void
     {
-        $dirs = Router::recursiveGrub($pagesDir);
+        $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($pagesDir));
 
-        foreach ($dirs as $dir) {
-            if (file_exists($dir . '/index.php')) {
-                self::$pages[str_replace('pages/', '', $dir)] = $dir . '/index.php';
+        foreach ($iterator as $file) {
+            if (!$file->isFile() || $file->getExtension() != 'php') {
+                continue;
             }
+
+            $pagePath = str_replace('pages/', '', $file->getPathname());
+            $pagePath = str_replace('.php', '', $pagePath);
+            self::$pages[$pagePath] = $file->getPathname();
         }
     }
 
@@ -60,18 +64,6 @@ class Router
 
         // Return the output buffer
         return ob_get_clean();
-    }
-
-    // Recursively get all directories
-    private static function recursiveGrub(string $path): array
-    {
-        $dirs = glob($path . '/*', GLOB_ONLYDIR);
-
-        foreach ($dirs as $dir) {
-            $dirs = array_merge($dirs, self::recursiveGrub($dir));
-        }
-
-        return $dirs;
     }
 
     // Check if the current page is an api

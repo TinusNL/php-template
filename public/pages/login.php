@@ -1,5 +1,10 @@
 <?php
 
+if (Auth::$user) {
+    header('Location: ' . Router::getUrl('admin/locked'));
+    exit;
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -11,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         Auth::setUser($user->id);
     }
 
-    echo 'Gebruikersnaam en/of wachtwoord is onjuist.';
+    echo 'Username and/or password is incorrect.';
 }
 
 ?>
@@ -20,15 +25,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <h1>Login</h1>
     <p>Login page</p>
     <hr>
-    <a href="<?= Router::getUrl('signup') ?>">Registreren</a>
+    <a href="<?= Router::getUrl('signup') ?>">Signup</a>
     <hr>
     <form action="" method="POST">
-        <label for="username">Gebruikersnaam:</label>
+        <label for="username">Username:</label>
         <input type="text" name="username" id="username" required>
         <br>
-        <label for="password">Wachtwoord:</label>
+        <label for="password">Password:</label>
         <input type="password" name="password" id="password" required>
         <br><br>
-        <input type="submit" value="Inloggen">
+        <input type="submit" value="Login">
     </form>
 </div>
