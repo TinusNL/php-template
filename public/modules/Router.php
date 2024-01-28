@@ -2,6 +2,7 @@
 class Router
 {
     private static array $pages = [];
+    private static array $components = [];
     public static string $url = '';
 
     // Load all pages from the given directory
@@ -17,6 +18,22 @@ class Router
             $pagePath = str_replace('pages/', '', $file->getPathname());
             $pagePath = str_replace('.php', '', $pagePath);
             self::$pages[$pagePath] = $file->getPathname();
+        }
+    }
+
+    // Load all components from the directory
+    public static function loadComponents(): void
+    {
+        $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator('components'));
+
+        foreach ($iterator as $file) {
+            if (!$file->isFile() || $file->getExtension() != 'php') {
+                continue;
+            }
+
+            $componentPath = str_replace('components/', '', $file->getPathname());
+            $componentPath = str_replace('.php', '', $componentPath);
+            self::$components[$componentPath] = $file->getPathname();
         }
     }
 
@@ -61,6 +78,19 @@ class Router
         } else {
             include Router::$pages['404'];
         }
+
+        // Return the output buffer
+        return ob_get_clean();
+    }
+
+    // Get the content of the given component
+    public static function getComponent(string $component): string
+    {
+        // Start the output buffer
+        ob_start();
+
+        // Include the component
+        include Router::$components[$component];
 
         // Return the output buffer
         return ob_get_clean();

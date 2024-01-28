@@ -4,6 +4,8 @@ Auth::forceLogin();
 
 ?>
 
+<?= Router::getComponent('admin/header') ?>
+
 <div>
     <h1>Locked</h1>
     <p>Locked page</p>

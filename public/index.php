@@ -3,6 +3,7 @@
 require_once '_constants.php';
 
 // Load the router
+Router::loadComponents();
 Router::loadPages('pages');
 Router::loadUrl($_SERVER['REQUEST_URI']);
 
