@@ -43,7 +43,7 @@ class Auth
         $_SESSION['user'] = $id;
 
         // Redirect to the home page
-        header('Location: ' . Router::getUrl('admin/locked'));
+        header('Location: ' . Router::getUrl('admin'));
         exit;
     }
 

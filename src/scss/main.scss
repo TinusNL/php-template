@@ -1,4 +1,16 @@
+// Imports
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+// Variables
+$text: #01221f;
+$background: #f4fffe;
+$primary: #4bbbb2;
+$secondary: #8ee7df;
+$accent: #54f0e3;
+
+$basic-shadow:
+    rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+    rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 
 // Components
 @import "components/admin/header.scss";
@@ -8,7 +20,8 @@
 @import "pages/login.scss";
 @import "pages/signup.scss";
 
-@import "pages/admin/locked.scss";
+@import "pages/admin.scss";
+@import "pages/admin/items.scss";
 
 @import "pages/404.scss";
 
@@ -21,8 +34,11 @@ html {
 
     width: 100%;
     min-height: 100%;
+
+    background-color: $background;
 }
 
 * {
+    color: $text;
     font-family: "Poppins", sans-serif;
 }

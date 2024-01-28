@@ -10,11 +10,13 @@ class Router
     {
         $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($pagesDir));
 
+        // Loop through all files in the given directory
         foreach ($iterator as $file) {
             if (!$file->isFile() || $file->getExtension() != 'php') {
                 continue;
             }
 
+            // Add the page to the array
             $pagePath = str_replace('pages/', '', $file->getPathname());
             $pagePath = str_replace('.php', '', $pagePath);
             self::$pages[$pagePath] = $file->getPathname();
@@ -26,11 +28,13 @@ class Router
     {
         $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator('components'));
 
+        // Loop through all files in the directory
         foreach ($iterator as $file) {
             if (!$file->isFile() || $file->getExtension() != 'php') {
                 continue;
             }
 
+            // Add the component to the array
             $componentPath = str_replace('components/', '', $file->getPathname());
             $componentPath = str_replace('.php', '', $componentPath);
             self::$components[$componentPath] = $file->getPathname();

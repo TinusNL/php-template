@@ -1,2 +1,89 @@
 .pages-login {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    > div {
+        background-color: $background;
+        box-shadow: $basic-shadow;
+
+        padding: 20px 20px;
+        width: 300px;
+
+        > h1 {
+            margin: 0px;
+            padding: 0px;
+
+            font-weight: 500;
+        }
+
+        > form {
+            margin-top: 10px;
+            width: 100%;
+            height: fit-content;
+
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            > div.input {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+
+                > label {
+                    font-weight: 500;
+                }
+
+                > input {
+                    padding: 10px 10px;
+
+                    outline: none;
+                    border: none;
+                    border-radius: 8px;
+                    background-color: $background;
+                    box-shadow: $basic-shadow;
+                }
+            }
+
+            > div.actions {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                > a {
+                    transition: 150ms;
+
+                    text-decoration: none;
+                    font-weight: 500;
+                    font-size: 12px;
+                    color: $primary;
+
+                    &:hover {
+                        color: lighten($primary, 15%);
+                    }
+                }
+
+                > input {
+                    transition: 150ms;
+
+                    padding: 8px 20px;
+
+                    background-color: $primary;
+                    outline: none;
+                    border: none;
+                    border-radius: 8px;
+                    font-weight: 500;
+                    text-decoration: none;
+
+                    &:hover {
+                        background-color: lighten($primary, 15%);
+                    }
+                }
+            }
+        }
+    }
 }

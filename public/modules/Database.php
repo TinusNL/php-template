@@ -13,6 +13,7 @@ class Database
 }
 
 try {
+    // Create a new PDO instance
     $dsn = "mysql:host=" . DATABASE_HOST . ";dbname=" . DATABASE_NAME;
     $options = array(
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,

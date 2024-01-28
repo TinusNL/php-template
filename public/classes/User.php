@@ -75,6 +75,7 @@ class User
         return $userObjects;
     }
 
+    // Get a user from the database by id
     public static function getById(int $id): User | bool
     {
         // Get the user from the database
@@ -87,6 +88,7 @@ class User
         return $user ? new User($user['id'], $user['username'], $user['password']) : false;
     }
 
+    // Get a user from the database by username
     public static function getByUsername(string $username): User | bool
     {
         // Get the user from the database
