@@ -9,7 +9,7 @@ define('DATABASE_NAME', 'php_template');
 
 // Autoload classes
 spl_autoload_register(function ($file) {
-    $folders = ['modules'];
+    $folders = ['modules', 'classes'];
 
     foreach ($folders as $folder) {
         if (file_exists(__DIR__ . '/' . $folder . '/' . $file . '.php')) {
