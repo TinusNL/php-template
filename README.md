@@ -1,5 +1,7 @@
 # PHP Template
 
+Basic PHP template with Docker and SCSS.
+
 ## Web Setup
 1. Copy the **`_constants.example.php`** file to **`_constants.php`**.
 2. Modify the **`_constants.php`** file to your needs.
